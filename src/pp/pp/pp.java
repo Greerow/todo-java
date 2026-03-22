@@ -8,16 +8,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 public class pp {
     public static void main(String[] args) {
-        Path p = Path.of("note.txt");
+        int[] index = {1, 2, 3, 4, 5};
+            int task;
+            task = index[0];
+            for (int i = 0; i < index.length - 1; i++) {
+                index[i] = index[i + 1];
 
-        // Строка, которую нужно записать в файл
-        String text = "Сегодня отличный день!";
-
-        try {
-            Files.writeString(p, text, StandardCharsets.UTF_8);
-            System.out.println("Файл успешно записан!");
-        } catch (IOException e) {
-            System.out.println("Ошибка при записи файла: " + e.getMessage());
+            }
+        index[index.length - 1] = task;
+        for (int i = 0; i < index.length; i++) {
+            System.out.print(index[i] + " ");
         }
     }
 }

@@ -1,6 +1,8 @@
+package pp.todo;
+
 import java.util.Scanner;
 
-public class TODO {
+public class  TodoApp {
     public static void main(String[] args) {
         String input;
         Scanner console = new Scanner(System.in);
@@ -46,14 +48,18 @@ public class TODO {
                 }
                 case "3": {
                     System.out.println("Удаление задачи");
-                    String input = console.nextLine();
-                    int index = Integer.parseInt(input);
+                    input = console.nextLine();
+                    int index = Integer.parseInt(input) - 1;
+                    if (index < 0 || index >= taskCount) {
+                        System.out.println("Неверный индекс");
+                        break;
+                    }
                     for (int i = index; i < taskCount - 1; i++) {
                         tasks[i] = tasks[i + 1];
+
                     }
-                    if (input > 0) {
-                        for (int j =)
-                    }
+                    taskCount--;
+                    System.out.println("Задача удалена");
 
                     break;
                 }
@@ -78,5 +84,7 @@ public class TODO {
     }
 
 
-}
+    }
+
+
 

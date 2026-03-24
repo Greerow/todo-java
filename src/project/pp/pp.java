@@ -1,11 +1,5 @@
-package pp.pp;
+package project.pp;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.nio.file.Files;
-import java.nio.file.Path;
 public class pp {
     public static void main(String[] args) {
         int[] index = {1, 2, 3, 4, 5};

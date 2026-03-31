@@ -1,17 +1,29 @@
 package project.pp;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 public class pp {
     public static void main(String[] args) {
-        int[] index = {1, 2, 3, 4, 5};
-            int task;
-            task = index[0];
-            for (int i = 0; i < index.length - 1; i++) {
-                index[i] = index[i + 1];
 
-            }
-        index[index.length - 1] = task;
-        for (int i = 0; i < index.length; i++) {
-            System.out.print(index[i] + " ");
-        }
+        // 1. Минск
+        ZoneId minskZone = ZoneId.of("Europe/Minsk");
+
+        ZonedDateTime originalEventTime = ZonedDateTime.of(
+                2025, 6, 1, 12, 0, 0, 0, minskZone);
+
+        // 2. Перевод в Instant (универсальное время)
+        Instant instant = originalEventTime.toInstant();
+
+        // 3. Токио
+        ZoneId tokyoZone = ZoneId.of("Asia/Tokyo");
+
+        ZonedDateTime eventTimeTokyoZoned = instant.atZone(tokyoZone);
+
+        // 4. Вывод
+        System.out.println(originalEventTime);
+        System.out.println(instant);
+        System.out.println(eventTimeTokyoZoned);
     }
 }

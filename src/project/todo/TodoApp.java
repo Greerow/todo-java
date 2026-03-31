@@ -2,89 +2,81 @@ package project.todo;
 
 import java.util.Scanner;
 
-public class  TodoApp {
-    public static void main(String[] args) {
-        String input;
-        Scanner console = new Scanner(System.in);
+public class TodoApp {
 
-        String[] tasks = new String[100];
-        int taskCount = 0;
+    public static void main(String[] args) {
+
+        Scanner console = new Scanner(System.in);
+        TodoService service = new TodoService();
 
         while (true) {
-            showMenu();
-            input = console.nextLine();
+            System.out.println("\n--- TODO ---");
+            System.out.println("1 - список задач");
+            System.out.println("2 - добавить задачу");
+            System.out.println("3 - удалить задачу");
+            System.out.println("4 - отметить как выполненную");
+            System.out.println("0 - выход");
 
-            switch (input) {
+
+            String cmd = console.nextLine();
+
+            switch (cmd) {
+
                 case "1": {
-                    System.out.println("Показ задач");
-
-
-                    if (taskCount == 0) {
+                    if (service.isEmpty()) {
                         System.out.println("Список пуст");
                         break;
                     }
 
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    int i = 1;
+                    for (Task t : service.getTasks()) {
+                        System.out.print(i + ". ");
+                        t.print();
+                        i++;
                     }
-
                     break;
                 }
+
                 case "2": {
-                    System.out.println("Добавление задачи");
-
                     System.out.println("Введите задачу:");
-                    String task = console.nextLine();
-
-                    if (task == null || task.isEmpty()) {
-                        System.out.println("Задача не может быть пустой");
-                        break;
-                    }
-                    tasks[taskCount] = task;
-                    taskCount++;
-
-                    System.out.println("Задача добавлена");
+                    String title = console.nextLine();
+                    service.addTask(title);
                     break;
                 }
+
                 case "3": {
-                    System.out.println("Удаление задачи");
-                    input = console.nextLine();
-                    int index = Integer.parseInt(input) - 1;
-                    if (index < 0 || index >= taskCount) {
+                    System.out.println("Номер задачи:");
+
+                    int index = Integer.parseInt(console.nextLine()) - 1;
+
+                    if (index < 0 || index >= service.size()) {
                         System.out.println("Неверный индекс");
                         break;
                     }
-                    for (int i = index; i < taskCount - 1; i++) {
-                        tasks[i] = tasks[i + 1];
 
-                    }
-                    taskCount--;
+                    service.removeTask(index);
                     System.out.println("Задача удалена");
-
                     break;
                 }
-                case "0": {
-                    System.out.println("Выход...");
+
+                case "4": {
+                    System.out.println("Номер задачи:");
+                    int index = Integer.parseInt(console.nextLine()) - 1;
+
+                    if (index < 0 || index >= service.size()) {
+                        System.out.println("Неверный номер задачи. Попробуйте ещё раз.");
+                        break;
+                    }
+
+                    service.markDone(index);
+                    System.out.println("Задача отмечена");
+                    break;
+
+                }
+
+                case "0":
                     return;
-                }
-                default: {
-                    System.out.println("Неверная команда");
-                }
             }
         }
-
     }
-
-    static void showMenu() {
-        // печать меню
-        System.out.println("1.Показать задачи.");
-        System.out.println("2.Добавить задачу.");
-        System.out.println("3.Удалить задачу.");
-        System.out.println("0.Выход.");
-    }
-
-
-    }
-
-
-
+}
